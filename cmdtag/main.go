@@ -24,7 +24,6 @@ func main() {
 
 			// fetch latest commit for all branch
 			shell.GitFetch()
-			// 按照分支创建 tag
 			for _, branch := range conf.Branches {
 				shell.CurrentBranch = branch
 
@@ -41,7 +40,7 @@ func main() {
 				shell.GitPushOrigin(tagName)
 
 				if strings.EqualFold(branch, "pre") || strings.EqualFold(branch, "online") {
-					// 获取最新 COMMIT ID
+					// get latest commit id
 					shell.GetCommitId()
 					msgCh <- fmt.Sprintf("%s--%s--commit id-> %s", shell.Path, shell.CurrentBranch, shell.CommitId)
 				} else {
