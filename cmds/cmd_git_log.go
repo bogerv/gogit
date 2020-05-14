@@ -23,7 +23,7 @@ func (slf *Cmd) GetLog(branch string) {
 }
 
 // GetCommitId exec git command `git rev-parse HEAD`
-func (slf *Cmd) GetCommitId(branch string) {
+func (slf *Cmd) GetCommitId() {
 	cmdArgs := []string{"rev-parse", "HEAD"}
 	cmd := exec.Command("git", cmdArgs...)
 	//fmt.Println("exec command:: git", strings.Join(cmdArgs, " "))
@@ -33,5 +33,6 @@ func (slf *Cmd) GetCommitId(branch string) {
 		panic(fmt.Sprintf("git rev-parse HEAD error: %v", err))
 	}
 
-	colorlog.Green(fmt.Sprintf("%s commit id: %s", branch, output))
+	colorlog.Green(fmt.Sprintf("%s commit id: %s", slf.CurrentBranch, output))
+	slf.CommitId = string(output)
 }

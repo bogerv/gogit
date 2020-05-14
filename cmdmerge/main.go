@@ -58,13 +58,15 @@ func main() {
 			checkoutTarget := branches[1]
 			colorlog.Blue(fmt.Sprintf("git flow: %s-%s", branchForMerge, checkoutTarget))
 			// 切换到要被合并的分支
-			shell.GitCheckout(branchForMerge)
+			shell.CurrentBranch = branchForMerge
+			shell.GitCheckout()
 
 			// 拉取最新代码
 			shell.GitPull()
 
 			// 切换到分支
-			shell.GitCheckout(checkoutTarget)
+			shell.CurrentBranch = checkoutTarget
+			shell.GitCheckout()
 
 			// 拉取最新代码
 			shell.GitPull()
@@ -76,7 +78,8 @@ func main() {
 			shell.GitPushOrigin(checkoutTarget)
 
 			// 获取最新 COMMIT ID
-			shell.GetCommitId(checkoutTarget)
+			shell.CurrentBranch = checkoutTarget
+			shell.GetCommitId()
 		}
 	}
 	colorlog.Success("Merge Finished...")

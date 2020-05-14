@@ -2,84 +2,66 @@ package main
 
 import (
 	"fmt"
-	"github.com/spf13/cast"
-	"github.com/spf13/viper"
+	"gitshell/cmdtag/config"
+	"strings"
 
 	"gitshell/cmds"
 	"gitshell/colorlog"
-	"gitshell/shellconst"
 )
 
 func main() {
-	//defer shellutils.CatchPanic()
-	//var pathCh = make(chan string, 1)
-	//var endCh = make(chan bool)
+	var msgCh = make(chan string, 1)
+	var endCh = make(chan bool)
+	conf := config.Init()
 
-	// 配置文件名称
-	viper.SetConfigName("config")
+	go func(ch chan<- string) {
+		for _, path := range conf.Paths {
+			shell := new(cmds.Cmd)
+			shell.Path = path
+			// change path
+			shell.Chdir()
+			colorlog.Cyan(fmt.Sprintf(`change path to: "%s"`, path))
 
-	// 查找配置文件查的路径, 可以配置多个
-	viper.AddConfigPath(".")
-	viper.AddConfigPath("./resource")
-	viper.AddConfigPath("../resource")
+			// fetch latest commit for all branch
+			shell.GitFetch()
+			// 按照分支创建 tag
+			for _, branch := range conf.Branches {
+				shell.CurrentBranch = branch
 
-	// 读取配置文件
-	err := viper.ReadInConfig()
-	if err != nil {
-		panic(fmt.Errorf("Fatal error config file: %s \n", err))
-	}
+				tagName := fmt.Sprintf("tag-%s-%s", branch, conf.Version)
+				basedBranch := fmt.Sprintf("origin/%s", branch)
 
-	// 获取需要打 tag 的项目路径
-	pathI := viper.Get("paths")
-	paths := cast.ToStringSlice(pathI)
+				// remove local same tag
+				shell.DeleteTag(tagName)
 
-	// 获取需要打 tag 的分支
-	branchesI := viper.Get("branches")
-	branches := cast.ToStringSlice(branchesI)
-	if len(branches) <= 0 {
-		colorlog.Error(shellconst.ErrNoBranch.Error())
-		return
-	}
+				// add tag
+				shell.AddTag(tagName, basedBranch, conf.Message)
 
-	// tag 配置项
-	tagVersion := viper.GetString("tag")
-	tagMessage := viper.GetString("message")
+				// push tag
+				shell.GitPushOrigin(tagName)
 
-	for _, path := range paths {
-		shell := new(cmds.Cmd)
-		shell.Path = path
-		// 切换执行 git 命令目录
-		shell.Chdir()
+				if strings.EqualFold(branch, "pre") || strings.EqualFold(branch, "online") {
+					// 获取最新 COMMIT ID
+					shell.GitCheckout().GetCommitId()
+					ch <- fmt.Sprintf("%s - %s - commit id->%s", shell.Path, shell.CurrentBranch, shell.CommitId)
+				}
+			}
+		}
+		endCh <- true
+	}(msgCh)
 
-		// change path and fetch
-		colorlog.Cyan(fmt.Sprintf(`change path to: "%s"`, path))
-		shell.GitFetch()
-		// 按照分支创建 tag
-		for _, branch := range branches {
-			tagName := fmt.Sprintf("tag-%s-%s", branch, tagVersion)
-			basedBranch := fmt.Sprintf("origin/%s", branch)
-
-			// remove local same tag
-			shell.DeleteTag(tagName)
-
-			// add tag
-			shell.AddTag(tagName, basedBranch, tagMessage)
-
-			// push tag
-			shell.GitPushOrigin(tagName)
-
-			// 获取最新 COMMIT ID
-			shell.GetCommitId(branch)
+	for {
+		select {
+		case end, ok := <-endCh:
+			if ok && end {
+				colorlog.Success("Finished...")
+				return
+			}
+		case msg, ok := <-msgCh:
+			if ok {
+				colorlog.Blue(msg)
+				return
+			}
 		}
 	}
-
-	//for {
-	//	select {
-	//	case end, ok := <-endCh:
-	//		if ok && end {
-	//			colorlog.Success("Finished...")
-	//			return
-	//		}
-	//	}
-	//}
 }

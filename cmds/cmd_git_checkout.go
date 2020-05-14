@@ -7,8 +7,8 @@ import (
 )
 
 // GitFetch git fetch
-func (slf *Cmd) GitCheckout(branch string) {
-	args := []string{"checkout", branch}
+func (slf *Cmd) GitCheckout() *Cmd {
+	args := []string{"checkout", slf.CurrentBranch}
 	cmd := exec.Command("git", args...)
 	fmt.Println("exec command:: git", strings.Join(args, " "))
 
@@ -16,5 +16,6 @@ func (slf *Cmd) GitCheckout(branch string) {
 	if err != nil {
 		panic(fmt.Sprintf("git checkout error: %v", err))
 	}
-}
 
+	return slf
+}
