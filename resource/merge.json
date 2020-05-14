@@ -1,0 +1,13 @@
+{
+  "--paths": "Project Path",
+  "paths": [
+    "D:\\testshell\\inquiry"
+  ],
+
+  "--flows": "Merge Flow",
+  "flows": [
+    "dev-test",
+    "test-pre",
+    "pre-online"
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "--paths": "Project Path",
+  "paths": [
+    "D:\\golang\\API",
+    "D:\\golang\\cms_am",
+    "D:\\golang\\cms_asset",
+    "D:\\golang\\cms_oprate",
+    "D:\\golang\\cms_risk",
+    "D:\\golang\\cms_service",
+    "D:\\golang\\coinutils",
+    "D:\\golang\\inquiry",
+    "D:\\golang\\kyc",
+    "D:\\golang\\setting",
+    "D:\\golang\\user",
+    "D:\\golang\\CurrencyWallet\\match",
+    "D:\\golang\\CurrencyWallet\\wallet",
+    "D:\\golang\\CurrencyWallet\\walletaddress",
+    "D:\\golang\\CurrencyWallet\\walletbtc",
+    "D:\\golang\\CurrencyWallet\\walletetc",
+    "D:\\golang\\CurrencyWallet\\walleteth",
+    "D:\\golang\\CurrencyWallet\\walletomg",
+    "D:\\golang\\CurrencyWallet\\walletusdt"
+  ],
+
+  "--branches": "需要打 tag 的分支",
+  "branches": [
+    "dev",
+    "test",
+    "pre",
+    "online"
+  ],
+
+  "--tag": "Tag Version",
+  "tag": "1.2.0.1",
+
+  "--message": "Tag Message",
+  "message": "tag version 1.2.0.1"
+}
