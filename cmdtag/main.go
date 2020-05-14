@@ -11,10 +11,10 @@ import (
 
 func main() {
 	var msgCh = make(chan string, 1)
-	var endCh = make(chan bool)
+	var endCh = make(chan struct{})
 	conf := config.Init()
 
-	go func(ch chan<- string) {
+	go func(msgCh chan<- string) {
 		for _, path := range conf.Paths {
 			shell := new(cmds.Cmd)
 			shell.Path = path
@@ -42,25 +42,26 @@ func main() {
 
 				if strings.EqualFold(branch, "pre") || strings.EqualFold(branch, "online") {
 					// 获取最新 COMMIT ID
-					shell.GitCheckout().GetCommitId()
-					ch <- fmt.Sprintf("%s - %s - commit id->%s", shell.Path, shell.CurrentBranch, shell.CommitId)
+					shell.GetCommitId()
+					msgCh <- fmt.Sprintf("%s--%s--commit id-> %s", shell.Path, shell.CurrentBranch, shell.CommitId)
+				} else {
+					fmt.Println()
 				}
 			}
 		}
-		endCh <- true
+		close(endCh)
 	}(msgCh)
 
 	for {
 		select {
-		case end, ok := <-endCh:
-			if ok && end {
+		case _, ok := <-endCh:
+			if !ok {
 				colorlog.Success("Finished...")
 				return
 			}
 		case msg, ok := <-msgCh:
 			if ok {
-				colorlog.Blue(msg)
-				return
+				colorlog.Success(msg)
 			}
 		}
 	}
