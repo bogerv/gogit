@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+	"os"
 	"strings"
 
 	"github.com/spf13/cast"
@@ -11,7 +13,7 @@ import (
 	"gitshell/colorlog"
 )
 
-const _splitFlag = "-"
+const _splitFlag = "->"
 
 func main() {
 	// 配置文件名称
@@ -36,6 +38,8 @@ func main() {
 	pathI := viper.Get("paths")
 	paths := cast.ToStringSlice(pathI)
 
+	f, _ := os.OpenFile("cmdmerge.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
+	defer f.Close()
 	for _, path := range paths {
 		shell := new(cmds.Cmd)
 		shell.Path = path
@@ -80,7 +84,14 @@ func main() {
 			// 获取最新 COMMIT ID
 			shell.CurrentBranch = checkoutTarget
 			shell.GetCommitId()
+			colorlog.Success(fmt.Sprintf("%s--%s--commit id-> %s", shell.Path, checkoutTarget, shell.CommitId))
+
+			log.SetOutput(f)
+			if checkoutTarget != "test" {
+				log.Printf("%s--%s-> %s", shell.Path, checkoutTarget, shell.CommitId)
+			}
 		}
+		log.Printf("\n")
 	}
 	colorlog.Success("Merge Finished...")
 }

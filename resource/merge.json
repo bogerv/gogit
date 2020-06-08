@@ -1,13 +1,17 @@
 {
   "--paths": "Project Path",
   "paths": [
-    "D:\\testshell\\inquiry"
+    "D:\\react\\web-home",
+    "D:\\react\\web-ex",
+    "D:\\react\\web-otc",
+    "D:\\react\\web-user",
+    "D:\\react\\web-wallet",
+    "D:\\react\\web-fameex-h5",
+    "D:\\react\\web-oprate-admin"
   ],
 
   "--flows": "Merge Flow",
   "flows": [
-    "dev-test",
-    "test-pre",
-    "pre-online"
+    "feature/active-transaction->test-loop"
   ]
 }
