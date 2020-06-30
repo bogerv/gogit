@@ -29,13 +29,7 @@ func main() {
 	// 获取需要打 tag 的项目路径
 	pathI := viper.Get("paths")
 	paths := cast.ToStringSlice(pathI)
-	// 获取需要打 tag 的分支
-	//branchesI := viper.Get("branches")
-	//branches := cast.ToStringSlice(branchesI)
-	//if len(branches) <= 0 {
-	//	colorlog.Error(shellconst.ErrNoBranch.Error())
-	//	return
-	//}
+
 	// 获取需要打 tag 的分支
 	tagsI := viper.Get("tags")
 	tags := cast.ToStringSlice(tagsI)
@@ -55,14 +49,6 @@ func main() {
 		// change path
 		colorlog.Cyan(fmt.Sprintf(`change path to: "%s"`, path))
 
-		// 按照分支创建 tag
-		//for _, branch := range branches {
-		//	// 按照分支创建 tag
-		//	tagName := fmt.Sprintf("tag-%s-%s", branch, tagVersion)
-		//	// remove origin tag
-		//	colorlog.Yellow("remove tag: " + tagName)
-		//	shell.PushOriginDelete(tagName)
-		//}
 		for _, tag := range tags {
 			// remove origin tag
 			colorlog.Yellow("remove tag: " + tag)

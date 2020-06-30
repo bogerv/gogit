@@ -1,7 +1,7 @@
 {
   "--paths": "Project Path",
   "paths": [
-    "D:\\golang\\cms_oprate"
+    "D:\\golang\\project_name"
   ],
 
   "--branches": "需要打 tag 的分支",

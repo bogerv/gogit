@@ -1,17 +1,13 @@
 {
   "--paths": "Project Path",
   "paths": [
-    "D:\\react\\web-home",
-    "D:\\react\\web-ex",
-    "D:\\react\\web-otc",
-    "D:\\react\\web-user",
-    "D:\\react\\web-wallet",
-    "D:\\react\\web-fameex-h5",
-    "D:\\react\\web-oprate-admin"
+    "D:\\golang\\project_name"
   ],
 
   "--flows": "Merge Flow",
   "flows": [
-    "feature/active-transaction->test-loop"
+    "dev->test",
+    "test->pre",
+    "pre->online"
   ]
 }
