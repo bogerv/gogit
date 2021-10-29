@@ -1,0 +1,12 @@
+{
+  "--paths": "Project Path",
+  "paths": [
+    "/Users/xxxxxx/Projects/React/web-ex",
+    "/Users/xxxxxx/Projects/React/web-home"
+  ],
+  "--flows": "Merge Flow",
+  "flows": [
+    "dev->test",
+    "test->pre"
+  ]
+}

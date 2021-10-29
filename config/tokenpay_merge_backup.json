@@ -1,0 +1,13 @@
+{
+  "--paths": "Project Path",
+  "paths": [
+    "D:\\golang\\tokenpay",
+    "D:\\react\\web-tokenpay",
+    "D:\\react\\web-tokenpay-admin"
+  ],
+  "--flows": "Merge Flow",
+  "flows": [
+    "dev->test",
+    "test->pre"
+  ]
+}

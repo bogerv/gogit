@@ -1,0 +1,25 @@
+{
+  "--paths": "Project Path",
+  "paths": [
+    "/Users/xxxxxx/Projects/golang/cms_am",
+    "/Users/xxxxxx/Projects/golang/cms_oprate",
+    "/Users/xxxxxx/Projects/golang/user",
+    "/Users/xxxxxx/Projects/golang/activity",
+    "/Users/xxxxxx/Projects/golang/proxy_server",
+    "/Users/xxxxxx/Projects/golang/notify_server",
+    "/Users/xxxxxx/Projects/react/",
+    "/Users/xxxxxx/Projects/react/",
+    "/Users/xxxxxx/Projects/react/",
+    "/Users/xxxxxx/Projects/react/",
+    "/Users/xxxxxx/Projects/react/"
+  ],
+  "--branches": "需要打 tag 的分支",
+  "branches": [
+    "pre",
+    "online"
+  ],
+  "--version": "Tag Version",
+  "version": "1.0.0.1",
+  "--message": "Tag Message",
+  "message": "tag 1.0.0.1"
+}
