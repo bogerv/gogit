@@ -11,19 +11,19 @@ var (
 	// config file paths
 	configPaths = []string{
 		"./",
-		"../",
 		"./config",
 		"../config",
 	}
 )
 
-func Init(name ...string) {
+func Init(name string, path ...string) {
 	if len(name) > 0 {
-		configName = name[0]
+		configName = name
 	}
 	// 配置文件名称
 	viper.SetConfigName(configName)
 	// 查找配置文件查的路径, 可以配置多个
+	configPaths = append(configPaths, path...)
 	for _, path := range configPaths {
 		viper.AddConfigPath(path)
 	}
