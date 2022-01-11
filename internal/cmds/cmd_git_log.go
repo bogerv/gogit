@@ -6,7 +6,7 @@ import (
 	"os/exec"
 )
 
-// GetLatestCommitId exec git command `git log -n 1 --pretty=format:"%H"`
+// GetLog exec git command `git log -n 1 --pretty=format:"%H"`
 func (slf *Cmd) GetLog(branch string) {
 	//cmsArgs := []string{"log", "-n", "1", `--pretty=format:"%H"`}
 	cmsArgs := []string{"log", "-n", "1", `--pretty=format:%H`}
