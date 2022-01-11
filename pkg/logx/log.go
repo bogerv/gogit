@@ -1,3 +1,6 @@
+// Package logx
+// 参照 Tony Bai 的文章实现
+// https://tonybai.com/2021/07/14/uber-zap-advanced-usage/
 package logx
 
 import (
