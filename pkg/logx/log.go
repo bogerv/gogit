@@ -4,14 +4,16 @@
 package logx
 
 import (
-	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
-	"gopkg.in/natefinch/lumberjack.v2"
+	"fmt"
 	"os"
 	"path"
 	"path/filepath"
 	"strings"
 	"time"
+
+	"go.uber.org/zap"
+	"go.uber.org/zap/zapcore"
+	"gopkg.in/natefinch/lumberjack.v2"
 )
 
 var logger *zap.Logger
@@ -75,7 +77,6 @@ func Init(filename string) {
 }
 
 // New 新创建实例化日志
-// 	创建完成后不要忘记 defer xxx.Sync()
 func New(tops []TeeOption, opts ...zap.Option) *zap.Logger {
 	var cores []zapcore.Core
 	cfg := zap.NewProductionConfig()
@@ -106,28 +107,47 @@ func New(tops []TeeOption, opts ...zap.Option) *zap.Logger {
 	return zap.New(zapcore.NewTee(cores...), opts...)
 }
 
+// Flush 由于底层 api 允许缓冲, 所以在进程退出之前调用 Sync
+func Flush() {
+	_ = logger.Sync()
+}
+
 func Debug(msg string) {
-	defer logger.Sync()
 	logger.Debug(msg)
 }
 
-func Info(msg string) {
-	defer logger.Sync()
-	logger.Info(msg)
+func Debugf(format string, v ...interface{}) {
+	logger.Debug(fmt.Sprintf(format, v...))
+}
 
+func Info(msg string) {
+	logger.Info(msg)
+}
+
+func Infof(format string, v ...interface{}) {
+	logger.Info(fmt.Sprintf(format, v...))
 }
 
 func Warn(msg string) {
-	defer logger.Sync()
 	logger.Warn(msg)
 }
 
+func Warnf(format string, v ...interface{}) {
+	logger.Warn(fmt.Sprintf(format, v...))
+}
+
 func Error(msg string) {
-	defer logger.Sync()
 	logger.Error(msg)
 }
 
+func Errorf(format string, v ...interface{}) {
+	logger.Error(fmt.Sprintf(format, v...))
+}
+
 func Fatal(msg string) {
-	defer logger.Sync()
 	logger.Fatal(msg)
+}
+
+func Fatalf(format string, v ...interface{}) {
+	logger.Fatal(fmt.Sprintf(format, v...))
 }

@@ -3,6 +3,7 @@ package logx
 import "testing"
 
 func TestMain(m *testing.M) {
+	defer Flush()
 	Init("./logs/sms.log")
 	m.Run()
 }
