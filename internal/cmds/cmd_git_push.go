@@ -3,9 +3,10 @@ package cmds
 import (
 	"bytes"
 	"fmt"
-	"gitshell/pkg/colorlog"
 	"os/exec"
 	"strings"
+
+	"gogit/pkg/colorlog"
 )
 
 // GitPushOrigin 向远端推送最新的分支或者Tag标签

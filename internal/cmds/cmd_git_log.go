@@ -2,8 +2,9 @@ package cmds
 
 import (
 	"fmt"
-	"gitshell/pkg/colorlog"
 	"os/exec"
+
+	"gogit/pkg/colorlog"
 )
 
 // GetLog exec git command `git log -n 1 --pretty=format:"%H"`

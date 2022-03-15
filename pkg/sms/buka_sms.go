@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"time"
 
-	"gitshell/pkg/httpx"
-	"gitshell/pkg/signx"
+	"gogit/pkg/httpx"
+	"gogit/pkg/signx"
 )
 
 // Buka 天一鸿短信发送

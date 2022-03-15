@@ -2,14 +2,16 @@ package main
 
 import (
 	"fmt"
-	"github.com/spf13/cast"
-	"github.com/spf13/viper"
-	"gitshell/config"
-	"gitshell/internal/cmds"
-	"gitshell/internal/constvar"
-	"gitshell/pkg/colorlog"
 	"log"
 	"strings"
+
+	"gogit/config"
+	"gogit/internal/cmds"
+	"gogit/internal/constvar"
+	"gogit/pkg/colorlog"
+
+	"github.com/spf13/cast"
+	"github.com/spf13/viper"
 )
 
 func main() {

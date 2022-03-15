@@ -1,8 +1,8 @@
 package cmds
 
 import (
-	"gitshell/internal/constvar"
-	"gitshell/pkg/colorlog"
+	"gogit/internal/constvar"
+	"gogit/pkg/colorlog"
 )
 
 // CatchPanic panic recover

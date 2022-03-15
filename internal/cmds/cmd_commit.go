@@ -3,9 +3,10 @@ package cmds
 import (
 	"bytes"
 	"fmt"
-	"gitshell/pkg/colorlog"
 	"os/exec"
 	"strings"
+
+	"gogit/pkg/colorlog"
 )
 
 // Add exec git add . command

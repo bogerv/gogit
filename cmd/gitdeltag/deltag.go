@@ -2,11 +2,12 @@ package main
 
 import (
 	"fmt"
-	"gitshell/config"
-	"gitshell/internal/cmds"
-	"gitshell/internal/constvar"
-	"gitshell/pkg/colorlog"
 	"log"
+
+	"gogit/config"
+	"gogit/internal/cmds"
+	"gogit/internal/constvar"
+	"gogit/pkg/colorlog"
 
 	"github.com/spf13/cast"
 	"github.com/spf13/viper"
